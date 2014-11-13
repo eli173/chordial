@@ -1,11 +1,10 @@
 
-// OKAYYY
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
 #include <X11/Xutil.h>
+#include <X11/extensions/XTest.h>
 #include <unistd.h>
 
 #include "keybindings.h"
@@ -18,66 +17,27 @@ int main(int argc, char **argv) {
     exit(1);
   }
   int defaultScreen = XDefaultScreen(theDisplay);
-  printf("%d\n",XDisplayHeightMM(theDisplay, defaultScreen));
-  unsigned long bw[2] = {XBlackPixel(theDisplay, defaultScreen),
-			 XWhitePixel(theDisplay, defaultScreen)};
-  printf("B:%lu W:%lu\n",bw[0],bw[1]);
+  //printf("%d\n",XDisplayHeightMM(theDisplay, defaultScreen));
+  //unsigned long bw[2] = {XBlackPixel(theDisplay, defaultScreen),
+  //			 XWhitePixel(theDisplay, defaultScreen)};
+  //printf("B:%lu W:%lu\n",bw[0],bw[1]);
   Window rootWin = XRootWindow(theDisplay, defaultScreen);
-  XSetWindowAttributes winAttribs;
-  winAttribs.background_pixmap = None;
-  winAttribs.background_pixel = 0x888888;
-  winAttribs.border_pixmap = CopyFromParent;
-  winAttribs.bit_gravity = ForgetGravity;
-  winAttribs.win_gravity = NorthWestGravity;
-  winAttribs.backing_store = NotUseful;
-  winAttribs.backing_planes = ~(0UL);
-  winAttribs.backing_pixel = 0;
-  winAttribs.save_under = False;
-  winAttribs.override_redirect = False;
-  winAttribs.colormap = CopyFromParent;
-  winAttribs.cursor = None;
-  winAttribs.event_mask = KeyPressMask | KeyReleaseMask;
-  winAttribs.do_not_propagate_mask = NoEventMask;
 
-  Window myWin = XCreateWindow(theDisplay, rootWin, 0, 0, 400, 400,
-			       10, CopyFromParent, InputOutput,
-			       CopyFromParent,
-			       CWBackPixel|
-			       CWEventMask | CWDontPropagate,
-			       &winAttribs);
-
-  //sleep(2);
-  //  XMapWindow(theDisplay, myWin);
-
-  //  XRaiseWindow(theDisplay, myWin);
-
-  //redundant XSelectInput(disp, win, event_mask), done in winattribs
-  //fprintf(stdout,"pending: %d",XPending(theDisplay));
-  /* XFlush(theDisplay); */
-  /* fprintf(stdout, "go\n") */
-  /* sleep(2); */
-  /* fprintf(stdout,"evts:%d\n", */
-  /* 	  XEventsQueued(theDisplay, QueuedAfterFlush)); */
-  //fprintf(stdout,"pending: %d",XPending(theDisplay));  
-  // remember XSendEvent...
-  //  rootWin.
-
-  /* XSetWindowAttributes rootAttribs; */
-  /* rootAttribs.event_mask = KeyPressMask | KeyReleaseMask; */
-  /* XChangeWindowAttributes(theDisplay, rootWin, */
-  /* 			  CWEventMask, &rootAttribs); */
-
-  int xgkres = XGrabKeyboard(theDisplay, rootWin,
-  			     True, GrabModeAsync,
-  			     GrabModeAsync, CurrentTime);
-  if(0==xgkres) {
-      printf("No go\n");
-      //   return 1;
-  }
-  //XAllowEvents(theDisplay, AsyncKeyboard, CurrentTime);
+  XSetWindowAttributes rootAttribs;
+  rootAttribs.event_mask = KeyPressMask | KeyReleaseMask;
+  XChangeWindowAttributes(theDisplay, rootWin,
+  			  CWEventMask, &rootAttribs);
+  /* if (0==XGrabKeyboard(theDisplay, rootWin, True, */
+  /* 		       GrabModeAsync, GrabModeAsync, CurrentTime)) { */
+  /*   printf("Keyboard could not be grabbed"); */
+  /*   return 1; */
+  /* } */
+  
   XFlush(theDisplay);
   int event_no = 0;
   XEvent event;
+  //  XEvent send_event;
+  //  XKeyEvent send_key_event;
   Bool gtfo = False;
   Bool pressedkeys[] = {False,False,False,False,False};
   Bool ignoreKeyUp = False;
@@ -128,6 +88,18 @@ int main(int argc, char **argv) {
 	    // Send a key
 	    // Temporary printf
 	    ignoreKeyUp = True;
+	    /* XSendEvent(theDisplay, InputFocus, False, */
+	    /* 	       KeyPressMask, send_event); */
+	    /* // MODIFY SEND_EVENT!!! */
+	    /* XSendEvent(the, InputFocus, False, KeyReleaseMask, */
+	    /* 	       send_event); */
+	    char kchar = onRelease(pressedkeys);
+	    KeyCode kc = XKeysymToKeycode(theDisplay,
+					  XStringToKeysym(&kchar));
+	    XTestFakeKeyEvent(theDisplay, kc, True, CurrentTime);
+	    XFlush(theDisplay);
+	    XTestFakeKeyEvent(theDisplay, kc, False, CurrentTime);
+	    XFlush(theDisplay);
 	    printf("%d: %c\n",boolstonum(pressedkeys)
 		   ,onRelease(pressedkeys));
 	  }

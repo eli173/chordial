@@ -32,12 +32,26 @@ int main(int argc, char **argv) {
   /*   printf("Keyboard could not be grabbed"); */
   /*   return 1; */
   /* } */
+
+  int xkgres = XGrabKeyboard(theDisplay, rootWin,
+			     True, GrabModeAsync, GrabModeAsync,
+			     CurrentTime);
+  if(xkgres != 0) {
+    printf("Could not grab keyboard\n");
+    return 1;
+  }
   
   XFlush(theDisplay);
   int event_no = 0;
   XEvent event;
   //  XEvent send_event;
-  //  XKeyEvent send_key_event;
+  XKeyEvent send_key_event;
+  send_key_event.display = theDisplay;
+  send_key_event.root = rootWin;
+  send_key_event.subwindow = None;
+  send_key_event.time = CurrentTime;
+  send_key_event.same_screen = True;
+  send_key_event.state = 0;
   Bool gtfo = False;
   Bool pressedkeys[] = {False,False,False,False,False};
   Bool ignoreKeyUp = False;
@@ -96,10 +110,29 @@ int main(int argc, char **argv) {
 	    char kchar = onRelease(pressedkeys);
 	    KeyCode kc = XKeysymToKeycode(theDisplay,
 					  XStringToKeysym(&kchar));
+
+
+	    /* XUngrabKeyboard(theDisplay, CurrentTime);	     */
+	    /* // ENDLESS FEEDBACK LOOP!!!	   */
 	    XTestFakeKeyEvent(theDisplay, kc, True, CurrentTime);
 	    XFlush(theDisplay);
 	    XTestFakeKeyEvent(theDisplay, kc, False, CurrentTime);
 	    XFlush(theDisplay);
+	    XGrabKeyboard(theDisplay, rootWin, True, GrabModeAsync,
+	    		  GrabModeAsync, CurrentTime);
+
+
+	    /* send_key_event.window = InputFocus; */
+	    /* send_key_event.keycode = kc; */
+	    /* send_key_event.type = KeyPress; */
+	    /* XSendEvent(theDisplay, InputFocus, False, */
+	    /* 	       KeyPressMask, (XEvent *)&send_key_event); */
+	    /* send_key_event.type = KeyRelease; */
+	    /* int xser = XSendEvent(theDisplay, InputFocus, False, */
+	    /* 			  KeyPressMask, */
+	    /* 			  (XEvent *)&send_key_event); */
+	    /* printf("xser: %d\t",xser); */
+	    
 	    printf("%d: %c\n",boolstonum(pressedkeys)
 		   ,onRelease(pressedkeys));
 	  }
