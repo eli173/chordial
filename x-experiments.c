@@ -1,4 +1,6 @@
 
+// OKAYYY
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <X11/Xlib.h>
@@ -36,6 +38,7 @@ int main(int argc, char **argv) {
   winAttribs.cursor = None;
   winAttribs.event_mask = KeyPressMask | KeyReleaseMask;
   winAttribs.do_not_propagate_mask = NoEventMask;
+
   Window myWin = XCreateWindow(theDisplay, rootWin, 0, 0, 400, 400,
 			       10, CopyFromParent, InputOutput,
 			       CopyFromParent,
@@ -45,7 +48,9 @@ int main(int argc, char **argv) {
 
   //sleep(2);
   XMapWindow(theDisplay, myWin);
+
   XRaiseWindow(theDisplay, myWin);
+
   //redundant XSelectInput(disp, win, event_mask), done in winattribs
   //fprintf(stdout,"pending: %d",XPending(theDisplay));
   /* XFlush(theDisplay); */
@@ -56,16 +61,18 @@ int main(int argc, char **argv) {
   //fprintf(stdout,"pending: %d",XPending(theDisplay));  
   // remember XSendEvent...
   //  rootWin.
-  XSetWindowAttributes rootAttribs;
-  rootAttribs.event_mask = KeyPressMask | KeyReleaseMask;
-  XChangeWindowAttributes(theDisplay, rootWin,
-			  CWEventMask, &rootAttribs);
+
+  /* XSetWindowAttributes rootAttribs; */
+  /* rootAttribs.event_mask = KeyPressMask | KeyReleaseMask; */
+  /* XChangeWindowAttributes(theDisplay, rootWin, */
+  /* 			  CWEventMask, &rootAttribs); */
+
   int xgkres = XGrabKeyboard(theDisplay, rootWin,
-			     True, GrabModeAsync,
-			     GrabModeAsync, CurrentTime);
+  			     True, GrabModeAsync,
+  			     GrabModeAsync, CurrentTime);
   if(0==xgkres) {
-    printf("No go\n");
-    return 1;
+      printf("No go\n");
+      //   return 1;
   }
   //XAllowEvents(theDisplay, AsyncKeyboard, CurrentTime);
   XFlush(theDisplay);
