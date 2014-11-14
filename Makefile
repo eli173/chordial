@@ -21,3 +21,6 @@ exo:  x-experiments-old.c keybindings.h keypress.c keypress.h keybindings.c
 
 chx: chordial-xt.c keybindings.h keypress.c keypress.h keybindings.c
 	gcc -g -o chx chordial-xt.c keypress.c keybindings.c -lX11 -lXtst
+
+cln: cleanch.c keybindings.h keypress.c keypress.h keybindings.c
+	gcc -g -o clean cleanch.c keypress.c keybindings.c -lX11 -lXtst

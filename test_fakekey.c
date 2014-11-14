@@ -6,25 +6,33 @@
 #include <unistd.h>
 
 
-int main(void) {
+int main(int argc, char **argv) {
+  int slptm = 20;
+  if(argc>1)
+    slptm = atoi(argv[1]);
+  printf("%d\n",slptm);
   Display *disp = XOpenDisplay(NULL);
-  int nexts;
-  printf("ooo\n");
-  char** exts;
-  exts = XListExtensions(disp, &nexts);
-  int i;
-  printf("nexts: %d\n",nexts);
-  for (i=0;i<nexts;i++) {
-    printf("%s\n",exts[i]);
-  }
-  printf("%d\n",True);
+  /* int nexts; */
+  /* printf("ooo\n"); */
+  /* char** exts; */
+  /* exts = XListExtensions(disp, &nexts); */
+  /* int i; */
+  /* printf("nexts: %d\n",nexts); */
+  /* for (i=0;i<nexts;i++) { */
+  /*   printf("%s\n",exts[i]); */
+  /* } */
+  /* printf("%d\n",True); */
+  XTestFakeKeyEvent(disp,
+		    XKeysymToKeycode(disp, XStringToKeysym("a")),
+		    True, CurrentTime);
+    
   while(1){
-    printf("succ: %d\t",XTestFakeKeyEvent(disp,
+    printf("Hi\n");
+    XTestFakeKeyEvent(disp,
 		      XKeysymToKeycode(disp, XStringToKeysym("e")),
-			      True, CurrentTime));
+		      True, CurrentTime);
     XFlush(disp);
-    printf("uh..\n");
-    sleep(2);
+    sleep(slptm);
   }
   return 0;
 }
