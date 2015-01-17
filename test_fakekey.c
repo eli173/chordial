@@ -12,27 +12,50 @@ int main(int argc, char **argv) {
     slptm = atoi(argv[1]);
   printf("%d\n",slptm);
   Display *disp = XOpenDisplay(NULL);
-  /* int nexts; */
-  /* printf("ooo\n"); */
-  /* char** exts; */
-  /* exts = XListExtensions(disp, &nexts); */
-  /* int i; */
-  /* printf("nexts: %d\n",nexts); */
-  /* for (i=0;i<nexts;i++) { */
-  /*   printf("%s\n",exts[i]); */
-  /* } */
-  /* printf("%d\n",True); */
+  Window root = XRootWindow(disp, XDefaultScreen(disp));
   XTestFakeKeyEvent(disp,
 		    XKeysymToKeycode(disp, XStringToKeysym("a")),
 		    True, CurrentTime);
-    
+  XTestFakeKeyEvent(disp,
+		    XKeysymToKeycode(disp, XStringToKeysym("a")),
+		    False, CurrentTime);
+
+  XGrabKeyboard(disp, root, True, GrabModeAsync,
+		GrabModeAsync, CurrentTime);
+  XTestFakeKeyEvent(disp,
+		    XKeysymToKeycode(disp, XStringToKeysym("b")),
+		    True, CurrentTime);
+  XTestFakeKeyEvent(disp,
+		    XKeysymToKeycode(disp, XStringToKeysym("b")),
+		    False, CurrentTime);
+  XUngrabKeyboard(disp, CurrentTime);  
+  XTestFakeKeyEvent(disp,
+		    XKeysymToKeycode(disp, XStringToKeysym("c")),
+		    True, CurrentTime);
+  XTestFakeKeyEvent(disp,
+		    XKeysymToKeycode(disp, XStringToKeysym("c")),
+		    False, CurrentTime);
+  XGrabKeyboard(disp, root, True, GrabModeAsync,
+		GrabModeAsync, CurrentTime);
+  XTestFakeKeyEvent(disp,
+		    XKeysymToKeycode(disp, XStringToKeysym("d")),
+		    True, CurrentTime);
+  XTestFakeKeyEvent(disp,
+		    XKeysymToKeycode(disp, XStringToKeysym("d")),
+		    False, CurrentTime);
+
+  XUngrabKeyboard(disp, CurrentTime);
+  
   while(1){
     printf("Hi\n");
     XTestFakeKeyEvent(disp,
-		      XKeysymToKeycode(disp, XStringToKeysym("e")),
-		      True, CurrentTime);
+  		      XKeysymToKeycode(disp, XStringToKeysym("e")),
+  		      True, CurrentTime);
+    XTestFakeKeyEvent(disp,
+  		      XKeysymToKeycode(disp, XStringToKeysym("e")),
+  		      False, CurrentTime);
     XFlush(disp);
-    sleep(slptm);
+    sleep(20);
   }
   return 0;
 }
