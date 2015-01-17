@@ -20,18 +20,3 @@ get_char(bool* keysdown) {
   }
   return e_better_keybinds[k];
 }
-
-
-
-
-/* int */
-/* boolstonum(bool* bools) { */
-/*   // bools must have 5 bools in it */
-/*   int i,n; */
-/*   for(i=0,n=0;n<5;n++) { */
-/*     if(bools[n]) { */
-/*       i += 1<<n; */
-/*     } */
-/*   } */
-/*   return i; */
-/* } */
