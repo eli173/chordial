@@ -1,6 +1,7 @@
 
 #include<stdbool.h>
 #include<unistd.h>
+#include "keybindings.h"
 
 char* e_keybinds = "0abcdefghijklmnopqrstuvwxyz .,-\b";
 

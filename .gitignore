@@ -17,3 +17,6 @@
 /clean
 /cleanch.c~
 /take2/keybindings.c~
+/take2/keybindings.h~
+/take2/send_char.c~
+/take2/send_keycode.c~
