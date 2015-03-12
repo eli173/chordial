@@ -9,7 +9,6 @@
 #include <unistd.h>
 #include <stdbool.h>
 
-#include <stdio.h>
 
 #include "sendkey.h"
 
@@ -19,6 +18,9 @@
 
 int send_key(KeySym keysym)
 {
+  /*
+    okay, I think I need some additional X funcalls or something to do this.. look at xdotool for inspiration
+   */
   Display *display = XOpenDisplay(0);
   if(display==NULL)
     {
