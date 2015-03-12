@@ -22,3 +22,8 @@
 /take2/send_keycode.c~
 /sendeky.h~
 /sendkey.c~
+/sendkey.h~
+/sendkey.o
+/tests
+/tests.c~
+/tests.o

@@ -9,6 +9,8 @@
 #include <unistd.h>
 #include <stdbool.h>
 
+#include <stdio.h>
+
 #include "sendkey.h"
 
 
@@ -23,5 +25,6 @@ int send_key(KeySym keysym)
       return -1;
     }
   XTestFakeKeyEvent(display, XKeysymToKeycode(display, keysym), KEYDOWN, CurrentTime);
+  XTestFakeKeyEvent(display, XKeysymToKeycode(display, keysym), KEYUP, CurrentTime);
   return 0;
 }
