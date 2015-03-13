@@ -28,5 +28,6 @@ int send_key(KeySym keysym)
     }
   XTestFakeKeyEvent(display, XKeysymToKeycode(display, keysym), KEYDOWN, CurrentTime);
   XTestFakeKeyEvent(display, XKeysymToKeycode(display, keysym), KEYUP, CurrentTime);
+  XFlush(display);
   return 0;
 }
