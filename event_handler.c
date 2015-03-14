@@ -13,4 +13,8 @@ KeySym get_keysym(XEvent event)
   return XLookupKeysym(xk_event, 1); // magic number....
 }
 
-bool key_down(KeySym key, KeySym* )
+bool key_down(KeySym key, KeySym* pressedkeys)
+{
+  return true;
+  
+}
