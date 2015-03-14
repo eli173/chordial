@@ -28,3 +28,8 @@
 /tests.c~
 /tests.o
 /capture_input.c~
+/#event_handler.c#
+/.#event_handler.c
+/config.h~
+/event_handler.c~
+/event_handler.h~
