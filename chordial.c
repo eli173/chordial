@@ -2,11 +2,14 @@
 
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 #include <stdio.h>
 
 #include "event_handler.h"
-
+#include "keymap.h"
+#include "config.h"
 
 
 
@@ -16,6 +19,13 @@ int main(int argc, char **argv)
   Window rootwin = XRootWindow(display, XDefaultScreen(display));
   int grab_succ = XGrabKeyboard(display, rootwin, False, GrabModeAsync, GrabModeAsync, CurrentTime);
   XEvent event;
+  unsigned int numkeys = sizeof(keyboard_keys)/sizeof(KeySym);
+  bool *pressedkeys = malloc(sizeof(bool)*numkeys);
+  unsigned int i;
+  for(i=0;i<numkeys;i++)
+    {
+      pressedkeys[i] = false;
+    }
   printf("%d\n",grab_succ);
   while(grab_succ == 0) // is 0 right?
     {
@@ -23,7 +33,23 @@ int main(int argc, char **argv)
       KeySym ks = get_keysym(event);
       if(ks == XK_Escape)
 	return 0;
+      if(event.type == KeyPress)
+	{
+	  key_down(ks, pressedkeys);
+	}
+      else // KeyRelease
+	{
+	  KeySym *action;
+	  unsigned long mask = 0;
+	  bool assigned = lookup(mask, action);
+	  if(assigned)
+	    { // is grab-ungrab necessary?
+	      XUngrabKeyboard(display, CurrentTime);
+	      send_key(action);
+	      grab_succ = XGrabKeyboard(display, rootwin, False,
+					GrabModeAsync, GrabModeAsync, CurrentTime);
+	    }
+	}
     }
-  
   return 0;
 }

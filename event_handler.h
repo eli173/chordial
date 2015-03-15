@@ -20,4 +20,6 @@ KeySym get_keysym(XEvent event);
  */
 void key_down(KeySym key, bool* pressedkeys);
 
+void key_up(KeySym key, bool* pressedkeys);
+
 #endif
