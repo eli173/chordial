@@ -33,3 +33,9 @@
 /config.h~
 /event_handler.c~
 /event_handler.h~
+/chordial.o
+/config.c~
+/event_handler.o
+/keymap.c~
+/keymap.h~
+/keymap.o

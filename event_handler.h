@@ -2,6 +2,7 @@
 #ifndef EVENT_HANDLER_H
 #define EVENT_HANDLER_H
 
+#include <stdbool.h>
 
 /**
  * @brief Extracts KeySym from an event
@@ -17,6 +18,6 @@ KeySym get_keysym(XEvent event);
  * takes a keysym and sets its spot in pressedkeys to on (t)
  *
  */
-bool key_down(KeySym key, bool* pressedkeys);
+void key_down(KeySym key, bool* pressedkeys);
 
 #endif
