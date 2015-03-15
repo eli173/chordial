@@ -12,7 +12,7 @@
 // later.. just use linear search for now
 void initialize(keydef* keymapping)
 {
-  qsort(keymapping, sizeof(keymapping)/sizeof(keydef), sizeof(keydef), sort_fn);
+  //qsort(keymapping, sizeof(keymapping)/sizeof(keydef), sizeof(keydef), sort_fn);
   return;
 }
 
@@ -32,7 +32,7 @@ bool lookup(unsigned long mask, KeySym* retsym)
   return false;
 }
 
-
+/*
 static int sort_fn(keydef a, keydef b)
 {
   if(a.chordmask<b.chordmask)
@@ -42,3 +42,4 @@ static int sort_fn(keydef a, keydef b)
   else
     return 0;
 }
+*/

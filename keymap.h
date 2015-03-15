@@ -20,7 +20,7 @@ bool lookup(unsigned long mask, KeySym* retsym);
  * @brief To be passed to qsort to sort map for binary search
  *
  */
-static int sort_fn(keydef a, keydef b);
+//static int sort_fn(keydef a, keydef b);
 
 
 #endif

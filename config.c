@@ -1,5 +1,3 @@
-#ifndef CONFIG_H
-#define CONFIG_H
 
 #include "config.h"
 
@@ -39,4 +37,3 @@ keydef key_mapping[] = {
   
 
 
-#endif
