@@ -7,6 +7,9 @@ DEPS = sendkey.h event_handler.h
 OBJECTS = sendkey.o event_handler.o chordial.o keymap.o
 #keymap.o config.o
 
+all: $(OBJECTS)
+	$(CC) $(OBJECTS) -o chordial $(LDFLAGS)
+
 config.o: config.c config.h
 	$(CC) config.c $(CFLAGS)
 
@@ -28,5 +31,3 @@ tests.o: sendkey.h tests.c sendkey.o
 test: tests.o sendkey.o
 	$(CC) -o tests tests.o sendkey.o $(LDFLAGS)
 
-all: $(OBJECTS)
-	$(CC) $(OBJECTS) -o chordial $(LDFLAGS)

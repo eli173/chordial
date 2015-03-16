@@ -19,7 +19,7 @@ void initialize(keydef* keymapping)
 
 bool lookup(unsigned long mask, KeySym* retsym)
 {
-  unsigned int numdefs = sizeof(key_mapping)/sizeof(keydef);
+  unsigned int numdefs = num_maps;
   unsigned int i;
   for(i=0;i<numdefs;i++)
     {

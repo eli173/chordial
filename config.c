@@ -20,6 +20,7 @@ KeySym keyboard_keys[] = {XK_q,XK_w,XK_e,XK_r,XK_t,
 			  XK_c,XK_v,
 			  XK_n,XK_m,
 			  XK_space};
+unsigned long num_keys = 15;
 
 
 /**
@@ -34,6 +35,7 @@ keydef key_mapping[] = {
   (keydef){XK_a, k(1) | k(12)},
   (keydef){XK_z, k(1) | k(13)}
 };
+unsigned long num_maps = 3;
   
 
 

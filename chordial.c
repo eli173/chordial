@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 
+#include "sendkey.h"
 #include "event_handler.h"
 #include "keymap.h"
 #include "config.h"
@@ -19,10 +20,9 @@ int main(int argc, char **argv)
   Window rootwin = XRootWindow(display, XDefaultScreen(display));
   int grab_succ = XGrabKeyboard(display, rootwin, False, GrabModeAsync, GrabModeAsync, CurrentTime);
   XEvent event;
-  unsigned int numkeys = sizeof(keyboard_keys)/sizeof(KeySym);
-  bool *pressedkeys = malloc(sizeof(bool)*numkeys);
+  bool *pressedkeys = malloc(sizeof(bool)*num_keys);
   unsigned int i;
-  for(i=0;i<numkeys;i++)
+  for(i=0;i<num_keys;i++)
     {
       pressedkeys[i] = false;
     }
@@ -35,17 +35,19 @@ int main(int argc, char **argv)
 	return 0;
       if(event.type == KeyPress)
 	{
+	  printf("kp");
 	  key_down(ks, pressedkeys);
 	}
       else // KeyRelease
 	{
-	  KeySym *action;
+	  KeySym *action = NULL;
 	  unsigned long mask = 0;
 	  bool assigned = lookup(mask, action);
+	  printf("assn: %d", assigned);
 	  if(assigned)
 	    { // is grab-ungrab necessary?
 	      XUngrabKeyboard(display, CurrentTime);
-	      send_key(action);
+	      send_key(*action);
 	      grab_succ = XGrabKeyboard(display, rootwin, False,
 					GrabModeAsync, GrabModeAsync, CurrentTime);
 	    }

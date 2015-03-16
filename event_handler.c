@@ -16,7 +16,7 @@ KeySym get_keysym(XEvent event)
 void key_down(KeySym key, bool* pressedkeys)
 {
   unsigned char c;
-  for(c=0;c<sizeof(keyboard_keys)/sizeof(KeySym);c++)
+  for(c=0;c<num_keys;c++)
     {
       if(keyboard_keys[c]==key)
 	{

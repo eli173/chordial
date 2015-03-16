@@ -12,6 +12,8 @@ KeySym *keyboard_keys;
 
 keydef *key_mapping;
 
+unsigned long num_maps;
+unsigned long num_keys;
 
 
 #endif
