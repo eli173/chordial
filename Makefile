@@ -28,6 +28,6 @@ sendkey.o: sendkey.h sendkey.c
 tests.o: sendkey.h tests.c sendkey.o
 	$(CC) tests.c $(CFLAGS)
 
-test: tests.o sendkey.o config.o
-	$(CC) -o tests tests.o sendkey.o config.o $(LDFLAGS)
+test: tests.o sendkey.o config.o event_handler.o
+	$(CC) -o tests tests.o sendkey.o config.o event_handler.o $(LDFLAGS)
 

@@ -15,10 +15,10 @@
  * Should be able to handle up to 32 keys, 
  * and other config should handle it
  */
-KeySym keyboard_keys[] = {XK_q,XK_w,XK_e,XK_r,XK_t,
-			  XK_y,XK_u,XK_i,XK_o,XK_p,
-			  XK_c,XK_v,
-			  XK_n,XK_m,
+KeySym keyboard_keys[] = {XK_Q,XK_W,XK_E,XK_R,XK_T,
+			  XK_Y,XK_U,XK_I,XK_O,XK_P,
+			  XK_C,XK_V,
+			  XK_N,XK_M,
 			  XK_space};
 unsigned long num_keys = 15;
 
