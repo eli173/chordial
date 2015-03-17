@@ -104,7 +104,7 @@ int main(void)
   printf("0'd in");
   KeySym *retsym;
   printf("rly?");
-  bool intbl = lookup(1, retsym);
+  bool intbl = lookup(1, *retsym);
   printf("OH-KAY!\n");
   printf("\n\nmask: %X lookup: %X, %X\n\n",1,intbl, *retsym);
   return 0;

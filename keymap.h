@@ -14,7 +14,7 @@
  * otherwise returns false and sets retsym to NULL
  *
  */
-bool lookup(unsigned long mask, KeySym* retsym);
+bool lookup(unsigned long mask, KeySym *retsym);
 
 /**
  * @brief To be passed to qsort to sort map for binary search
