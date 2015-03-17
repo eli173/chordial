@@ -1,8 +1,8 @@
 
 #headers
 CC = gcc
-CFLAGS = -Wall -c
-LDFLAGS = -Wall -lX11 -lXtst
+CFLAGS = -Wall -c -g
+LDFLAGS = -Wall -g -lX11 -lXtst
 DEPS = sendkey.h event_handler.h
 OBJECTS = sendkey.o event_handler.o chordial.o keymap.o
 #keymap.o config.o
@@ -28,6 +28,8 @@ sendkey.o: sendkey.h sendkey.c
 tests.o: sendkey.h tests.c sendkey.o
 	$(CC) tests.c $(CFLAGS)
 
-test: tests.o sendkey.o config.o event_handler.o
-	$(CC) -o tests tests.o sendkey.o config.o event_handler.o $(LDFLAGS)
+test: tests.o sendkey.o config.o event_handler.o keymap.o
+	$(CC) -o tests tests.o sendkey.o config.o event_handler.o keymap.o $(LDFLAGS)
 
+clean:
+	rm *.o

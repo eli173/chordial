@@ -10,12 +10,13 @@
 #include <unistd.h>
 #include <stdbool.h>
 
+#include "keymap.h"
 #include "event_handler.h"
 #include "sendkey.h"
 #include "config.h"
 
 
-int main(int argc, char **argv)
+int oldmain(int argc, char **argv)
 {
   Display *display = XOpenDisplay(0);
 
@@ -42,7 +43,7 @@ int main(int argc, char **argv)
   sleep(1);
   XEvent event; 
   bool exitvar = false;
-  while(!exitvar)
+  while(exitvar)
     {
       XMaskEvent(display, KeyPressMask | KeyReleaseMask, &event);
       KeySym ks = get_keysym(event);
@@ -74,5 +75,37 @@ int main(int argc, char **argv)
       printf("k: %X\n",keyboard_keys[mask]);
     }
   printf("\n\n%X\n",XK_q);
+  printf("0'd in");
+  KeySym *retsym;
+  printf("rly?");
+  bool intbl = lookup(1, retsym);
+  printf("OH-KAY!\n");
+  printf("\n\nmask: %X lookup: %X, %X\n\n",1,intbl, *retsym);
+  return 0;
+}
+
+
+int main(void)
+{
+    unsigned long mask = 0;
+  KeySym lu = NULL;
+  //lookup()
+  printf("num maps: %X\n", num_maps);
+  for(mask=0;mask<num_maps;mask++)
+    {
+      printf("kmm %X: %X\n", mask, key_mapping[mask].chordmask);
+    }
+  printf("keys: \n");
+  for(mask=0;mask<num_keys;mask++)
+    {
+      printf("k: %X\n",keyboard_keys[mask]);
+    }
+  printf("\n\n%X\n",XK_q);
+  printf("0'd in");
+  KeySym *retsym;
+  printf("rly?");
+  bool intbl = lookup(1, retsym);
+  printf("OH-KAY!\n");
+  printf("\n\nmask: %X lookup: %X, %X\n\n",1,intbl, *retsym);
   return 0;
 }
