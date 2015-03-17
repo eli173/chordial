@@ -22,5 +22,11 @@ bool lookup(unsigned long mask, KeySym* retsym);
  */
 //static int sort_fn(keydef a, keydef b);
 
+/**
+ * @brief gets the mask from the given keys
+ *
+ *
+ */
+unsigned long get_mask(unsigned long numkeys, bool* pressedkeys);
 
 #endif

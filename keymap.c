@@ -19,8 +19,8 @@ void initialize(keydef* keymapping)
 
 bool lookup(unsigned long mask, KeySym* retsym)
 {
-  unsigned int numdefs = num_maps;
-  unsigned int i;
+  unsigned long numdefs = num_maps;
+  unsigned long i;
   for(i=0;i<numdefs;i++)
     {
       if(key_mapping[i].chordmask == mask)
@@ -31,6 +31,21 @@ bool lookup(unsigned long mask, KeySym* retsym)
     }
   return false;
 }
+
+unsigned long get_mask(unsigned long numkeys, bool* pressedkeys)
+{
+  unsigned long mask = 0;
+  unsigned long i;
+  for(i=0;i<numkeys;i++)
+    {
+      if(pressedkeys[i])
+	{
+	  mask |= (1)<<i;
+	}
+    }
+  return mask;
+}
+
 
 /*
 static int sort_fn(keydef a, keydef b)

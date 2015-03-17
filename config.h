@@ -8,12 +8,12 @@ typedef struct {
   unsigned long chordmask;
 } keydef;
 
-KeySym *keyboard_keys;
+extern KeySym keyboard_keys[];
 
-keydef *key_mapping;
+extern keydef key_mapping[];
 
-unsigned long num_maps;
-unsigned long num_keys;
+extern unsigned long num_maps;
+extern unsigned long num_keys;
 
 
 #endif

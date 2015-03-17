@@ -41,9 +41,12 @@ int main(int argc, char **argv)
       else // KeyRelease
 	{
 	  KeySym *action = NULL;
-	  unsigned long mask = 0;
+	  unsigned long mask = get_mask(num_keys, pressedkeys);
+	  printf("mask: %lu\n",mask);
 	  bool assigned = lookup(mask, action);
-	  printf("assn: %d", assigned);
+	  printf("assn: %d\n", assigned);
+	  //if(action!=NULL)
+	  //printf("action: %u", *action);
 	  if(assigned)
 	    { // is grab-ungrab necessary?
 	      XUngrabKeyboard(display, CurrentTime);
