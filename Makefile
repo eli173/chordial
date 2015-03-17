@@ -4,7 +4,7 @@ CC = gcc
 CFLAGS = -Wall -c -g
 LDFLAGS = -Wall -g -lX11 -lXtst
 DEPS = sendkey.h event_handler.h
-OBJECTS = sendkey.o event_handler.o chordial.o keymap.o
+OBJECTS = sendkey.o event_handler.o chordial.o keymap.o config.o
 #keymap.o config.o
 
 all: $(OBJECTS)
