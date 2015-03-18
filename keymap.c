@@ -22,13 +22,10 @@ bool lookup(unsigned long mask, KeySym* retsym)
 {
   unsigned long numdefs = num_maps;
   unsigned long i;
-  printf("hi");
   for(i=0;i<numdefs;i++)
     {
-      printf("now I found it");
       if(key_mapping[i].chordmask == mask)
 	{ // do I need a malloc?
-	  printf("found the fault");//why didnt this print
 	  *retsym = key_mapping[i].action;
 	  return true;
 	}

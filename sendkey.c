@@ -22,7 +22,6 @@ int send_key(KeySym keysym)
   /*
     okay, I think I need some additional X funcalls or something to do this.. look at xdotool for inspiration
    */
-  printf("\nmade it here ok\n");
   Display *display = XOpenDisplay(0);
   if(display==NULL)
     {
@@ -31,5 +30,6 @@ int send_key(KeySym keysym)
   XTestFakeKeyEvent(display, XKeysymToKeycode(display, keysym), KEYDOWN, CurrentTime);
   XTestFakeKeyEvent(display, XKeysymToKeycode(display, keysym), KEYUP, CurrentTime);
   XFlush(display);
+  XCloseDisplay(display);
   return 0;
 }
