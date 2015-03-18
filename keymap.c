@@ -29,7 +29,7 @@ bool lookup(unsigned long mask, KeySym* retsym)
       if(key_mapping[i].chordmask == mask)
 	{ // do I need a malloc?
 	  printf("found the fault");//why didnt this print
-	  retsym = &key_mapping[i].action;
+	  *retsym = key_mapping[i].action;
 	  return true;
 	}
     }

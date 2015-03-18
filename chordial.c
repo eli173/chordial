@@ -40,19 +40,19 @@ int main(int argc, char **argv)
 	}
       else // KeyRelease
 	{
-	  KeySym *action = NULL;
+	  KeySym action;
 	  unsigned long mask = get_mask(num_keys, pressedkeys);
 	  printf("mask: %lu\n",mask);
-	  bool assigned = lookup(mask, action);
+	  bool assigned = lookup(mask, &action);
 	  printf("assn: %d\n", assigned);
 	  //if(action!=NULL)
 	  //printf("action: %u", *action);
 	  if(assigned)
 	    { // is grab-ungrab necessary?
-	      /* XUngrabKeyboard(display, CurrentTime); */
-	      send_key(*action);
-	      /* grab_succ = XGrabKeyboard(display, rootwin, False, */
-	      /* 				GrabModeAsync, GrabModeAsync, CurrentTime); */
+	      XUngrabKeyboard(display, CurrentTime);
+	      send_key(action);
+	      grab_succ = XGrabKeyboard(display, rootwin, False,
+	      				GrabModeAsync, GrabModeAsync, CurrentTime);
 	    }
 	}
     }
