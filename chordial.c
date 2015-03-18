@@ -49,10 +49,10 @@ int main(int argc, char **argv)
 	  //printf("action: %u", *action);
 	  if(assigned)
 	    { // is grab-ungrab necessary?
-	      XUngrabKeyboard(display, CurrentTime);
+	      /* XUngrabKeyboard(display, CurrentTime); */
 	      send_key(*action);
-	      grab_succ = XGrabKeyboard(display, rootwin, False,
-					GrabModeAsync, GrabModeAsync, CurrentTime);
+	      /* grab_succ = XGrabKeyboard(display, rootwin, False, */
+	      /* 				GrabModeAsync, GrabModeAsync, CurrentTime); */
 	    }
 	}
     }

@@ -1,6 +1,7 @@
 
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
 #include <X11/Xutil.h>
@@ -21,6 +22,7 @@ int send_key(KeySym keysym)
   /*
     okay, I think I need some additional X funcalls or something to do this.. look at xdotool for inspiration
    */
+  printf("\nmade it here ok\n");
   Display *display = XOpenDisplay(0);
   if(display==NULL)
     {
