@@ -4,6 +4,6 @@
 
 #include <X11/Xlib.h>
 
-int send_key(KeySym keysym);
+int send_key(KeySym keysym, Display* display);
 
 #endif

@@ -46,10 +46,10 @@ int main(int argc, char **argv)
 	  bool assigned = lookup(mask, &action);
 	  printf("mask: %lu\n",mask);
 	  printf("action: %u\n", action);
-	  if(assigned)
+	  if(assigned && true)
 	    {
 	      XUngrabKeyboard(display, CurrentTime);
-	      send_key(action);
+	      send_key(action,display);
 	      grab_succ = XGrabKeyboard(display, rootwin,
 					false, GrabModeAsync,
 					GrabModeAsync, CurrentTime);
