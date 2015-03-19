@@ -16,7 +16,9 @@
 #include "config.h"
 
 
-int oldmain(int argc, char **argv)
+bool pressrelease(void);
+
+int oldermain(int argc, char **argv)
 {
   Display *display = XOpenDisplay(0);
 
@@ -43,19 +45,14 @@ int oldmain(int argc, char **argv)
   sleep(1);
   XEvent event; 
   bool exitvar = false;
-  while(exitvar)
+  while(!exitvar)
     {
       XMaskEvent(display, KeyPressMask | KeyReleaseMask, &event);
       KeySym ks = get_keysym(event);
       if(ks==XK_Escape)
 	exitvar = true;
-      unsigned long i;
-      /* for(i=0;i<num_keys;i++) */
-      /* 	  if(ks == keyboard_keys[i]) */
-      /* 	    printf("in the thing\n"); */
-      /* 	  else */
-      /* 	    printf("not in the thing\n"); */
-      printf("kp: %X\n", ks);
+      printf("press: %d", (event.type = KeyPress));
+      printf("release: %d", (event.type = KeyRelease));
     }
   XUngrabKeyboard(display, CurrentTime);
   printf("%d\n",xgksucc);
@@ -85,7 +82,7 @@ int oldmain(int argc, char **argv)
 }
 
 
-int main(void)
+int oldmain(void)
 {
     unsigned long mask = 0;
   KeySym lu = NULL;
@@ -107,5 +104,37 @@ int main(void)
   bool intbl = lookup(1, *retsym);
   printf("OH-KAY!\n");
   printf("\n\nmask: %X lookup: %X, %X\n\n",1,intbl, *retsym);
+  return 0;
+}
+
+
+bool pressrelease(void)
+{
+  Display *display = XOpenDisplay(0);
+  XAutoRepeatOff(display);
+  Window rootwin = XRootWindow(display, XDefaultScreen(display));
+  int xgksucc = XGrabKeyboard(display, rootwin, False, GrabModeAsync, GrabModeAsync, CurrentTime);
+  XEvent event;
+  bool exitvar = false;
+  while(!exitvar)
+    {
+      XMaskEvent(display, KeyPressMask | KeyReleaseMask, &event);
+      KeySym ks = get_keysym(event);
+      if(ks==XK_Escape)
+	exitvar = true;
+      if(event.type==KeyPress)
+	printf("keypress\n");
+      else if(event.type==KeyRelease)
+	printf("keyrelease\n");
+    }
+  XUngrabKeyboard(display, CurrentTime);
+  return true;
+}
+
+
+
+int main(void)
+{
+  pressrelease();
   return 0;
 }

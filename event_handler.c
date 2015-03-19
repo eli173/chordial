@@ -31,6 +31,15 @@ void key_down(KeySym key, bool* pressedkeys)
 
 bool key_up(KeySym key, bool* pressedkeys)
 {
-  return true;
+  unsigned char c;
+  for(c=0;c<num_keys;c++)
+    {
+      if(keyboard_keys[c]==key)
+	{
+	  pressedkeys[c]=false;
+	}
+
+    }  
   
+  return true;  
 }

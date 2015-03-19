@@ -17,8 +17,11 @@
 int main(int argc, char **argv)
 {
   Display *display = XOpenDisplay(0);
+  XAutoRepeatOff(display);
   Window rootwin = XRootWindow(display, XDefaultScreen(display));
-  int grab_succ = XGrabKeyboard(display, rootwin, False, GrabModeAsync, GrabModeAsync, CurrentTime);
+  int grab_succ = XGrabKeyboard(display, rootwin,
+				false, GrabModeAsync,
+				GrabModeAsync, CurrentTime);
   XEvent event;
   bool *pressedkeys = malloc(sizeof(bool)*num_keys);
   unsigned int i;
@@ -41,10 +44,18 @@ int main(int argc, char **argv)
 	  KeySym action;
 	  unsigned long mask = get_mask(num_keys, pressedkeys);
 	  bool assigned = lookup(mask, &action);
+	  printf("mask: %lu\n",mask);
+	  printf("action: %u\n", action);
 	  if(assigned)
 	    {
+	      XUngrabKeyboard(display, CurrentTime);
 	      send_key(action);
+	      grab_succ = XGrabKeyboard(display, rootwin,
+					false, GrabModeAsync,
+					GrabModeAsync, CurrentTime);
 	    }
+	  key_up(ks, pressedkeys);
+	  printf("newmask: %lu\n",get_mask(num_keys, pressedkeys));
 	}
     }
   XCloseDisplay(display);
