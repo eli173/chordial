@@ -17,6 +17,7 @@
 
 
 bool pressrelease(void);
+int keystuff(void);
 
 int oldermain(int argc, char **argv)
 {
@@ -31,10 +32,10 @@ int oldermain(int argc, char **argv)
   int i;
   for(i=0;i<10;i++)
     {
-      send_key(XK_T);
-      send_key(XK_e);
-      send_key(XK_s);
-      send_key(XK_t);
+      /* send_key(XK_T); */
+      /* send_key(XK_e); */
+      /* send_key(XK_s); */
+      /* send_key(XK_t); */
     }
 
   // tests kb grab
@@ -131,10 +132,24 @@ bool pressrelease(void)
   return true;
 }
 
+int keystuff(void)
+{
+  unsigned long i;
+  for(i=0;i<num_maps;i++)
+    {
+      printf("mask: %lu, key: %d\n",
+	     key_mapping[i].chordmask,
+	     key_mapping[i].action);
+      
+    }
+  return 0;
+}
+
 
 
 int main(void)
 {
   pressrelease();
+  keystuff();
   return 0;
 }

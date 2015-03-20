@@ -36,6 +36,7 @@ bool key_up(KeySym key, bool* pressedkeys)
     {
       if(keyboard_keys[c]==key)
 	{
+	  printf("\tc:%d\t",c);
 	  pressedkeys[c]=false;
 	}
 

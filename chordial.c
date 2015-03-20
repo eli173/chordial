@@ -44,8 +44,8 @@ int main(int argc, char **argv)
 	  KeySym action;
 	  unsigned long mask = get_mask(num_keys, pressedkeys);
 	  bool assigned = lookup(mask, &action);
-	  printf("mask: %lu\n",mask);
-	  printf("action: %u\n", action);
+	  printf("mask: %lu\t",mask);
+	  printf("action: %u\t", action);
 	  if(assigned && true)
 	    {
 	      XUngrabKeyboard(display, CurrentTime);
@@ -58,6 +58,7 @@ int main(int argc, char **argv)
 	  printf("newmask: %lu\n",get_mask(num_keys, pressedkeys));
 	}
     }
+  XAutoRepeatOn(display);
   XCloseDisplay(display);
   return 0;
 }
