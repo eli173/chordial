@@ -56,6 +56,11 @@ int main(int argc, char **argv)
 	  printf("\n");
 	  //printf("mask: %lu\t",mask);
 	  //printf("action: %u\t", action);
+	  /* 
+	   * Okayyy.. check that the key sent isn't 
+	   * in the new mask and then sim a keyup before
+	   * and another keydn after?
+	   */
 	  if(assigned && true)
 	    {
 	      XUngrabKeyboard(display, CurrentTime);

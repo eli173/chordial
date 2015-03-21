@@ -15,6 +15,9 @@
 #include "sendkey.h"
 #include "config.h"
 
+#define KEYDOWN 1
+#define KEYUP 0
+
 int sendrecieve(void);
 bool pressrelease(void);
 int keystuff(void);
@@ -148,14 +151,26 @@ int keystuff(void)
 
 int sendrecieve(void)
 {
-
-
+  Display *display = XOpenDisplay(0);
+  Window rootwin = XRootWindow(display, XDefaultScreen(display));
+  /* XGrabKeyboard(display, rootwin, false, */
+  /* 		GrabModeAsync, GrabModeAsync, CurrentTime); */
+  int f=0,s=0,t=0;
+  f = XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_r),
+  			    KEYDOWN, CurrentTime);
+  /* s = XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_r), */
+  /* 			    KEYUP, CurrentTime); */
+  t = XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_r),
+			    KEYUP, CurrentTime);
+  XFlush(display);
+  printf("f: %d s: %d t: %d\n",f,s,t);
   return 0;
 }
 
   
 int main(void)
 {
+  sendrecieve();
   //  pressrelease();
   //  keystuff();
   return 0;
