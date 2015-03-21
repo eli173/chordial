@@ -15,7 +15,7 @@
 #include "sendkey.h"
 #include "config.h"
 
-
+int sendrecieve(void);
 bool pressrelease(void);
 int keystuff(void);
 
@@ -146,10 +146,17 @@ int keystuff(void)
 }
 
 
+int sendrecieve(void)
+{
 
+
+  return 0;
+}
+
+  
 int main(void)
 {
-  pressrelease();
-  keystuff();
+  //  pressrelease();
+  //  keystuff();
   return 0;
 }

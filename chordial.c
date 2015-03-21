@@ -32,20 +32,30 @@ int main(int argc, char **argv)
   while(grab_succ == 0) // is 0 right?
     {
       XMaskEvent(display, KeyPressMask | KeyReleaseMask, &event);
+      printf("type: %d\n",event.type);
       KeySym ks = get_keysym(event);
       if(ks == XK_Escape)
 	return 0;
       if(event.type == KeyPress)
 	{
 	  key_down(ks, pressedkeys);
+	  printf("kdn: ");
+	  for(i=0;i<num_keys;i++)
+	    printf("%d", pressedkeys[i]);
+	  printf("\n");
 	}
       else // KeyRelease
 	{
 	  KeySym action;
 	  unsigned long mask = get_mask(num_keys, pressedkeys);
 	  bool assigned = lookup(mask, &action);
-	  printf("mask: %lu\t",mask);
-	  printf("action: %u\t", action);
+	  key_up(ks, pressedkeys);
+	  printf("kup: ");
+	  for(i=0;i<num_keys;i++)
+	    printf("%d", pressedkeys[i]);
+	  printf("\n");
+	  //printf("mask: %lu\t",mask);
+	  //printf("action: %u\t", action);
 	  if(assigned && true)
 	    {
 	      XUngrabKeyboard(display, CurrentTime);
@@ -54,8 +64,8 @@ int main(int argc, char **argv)
 					false, GrabModeAsync,
 					GrabModeAsync, CurrentTime);
 	    }
-	  key_up(ks, pressedkeys);
-	  printf("newmask: %lu\n",get_mask(num_keys, pressedkeys));
+	  mask = 0;
+	  //printf("newmask: %lu\n",get_mask(num_keys, pressedkeys));
 	}
     }
   XAutoRepeatOn(display);

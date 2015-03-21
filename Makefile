@@ -28,8 +28,14 @@ sendkey.o: sendkey.h sendkey.c
 tests.o: sendkey.h tests.c sendkey.o
 	$(CC) tests.c $(CFLAGS)
 
+config_test.o: config.h config_test.c
+	$(CC) config_test.c $(CFLAGS)
+
 test: tests.o sendkey.o config.o event_handler.o keymap.o
 	$(CC) -o tests tests.o sendkey.o config.o event_handler.o keymap.o $(LDFLAGS)
+
+altcfg: sendkey.o event_handler.o chordial.o keymap.o config_test.o
+	$(CC) -o altcfg sendkey.o event_handler.o chordial.o keymap.o config_test.o $(LDFLAGS)
 
 clean:
 	rm *.o

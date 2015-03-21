@@ -40,3 +40,6 @@
 /keymap.h~
 /keymap.o
 /config.o
+/altcfg
+/config_test.c~
+/config_test.o
