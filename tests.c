@@ -167,10 +167,29 @@ int sendrecieve(void)
   return 0;
 }
 
+int aipkstuff()
+{
+  bool* pressedkeys = malloc(sizeof(bool)*num_keys);
+  unsigned long i;
+  for(i=0;i<num_keys;i++)
+    {
+      pressedkeys[i]=false;
+    }
+  pressedkeys[5]=true;
+  pressedkeys[12]=true;
+  KeySym action = XK_n;
+  bool aipk = action_in_pressedkeys(action, pressedkeys);
+  (aipk==true) ? printf("t\n") : printf("f\n");
+  action = XK_N;
+  aipk = action_in_pressedkeys(action, pressedkeys);
+  (aipk==true) ? printf("t\n") : printf("f\n");
+  return 0;
+}
   
 int main(void)
 {
-  sendrecieve();
+  aipkstuff();
+  // sendrecieve();
   //  pressrelease();
   //  keystuff();
   return 0;

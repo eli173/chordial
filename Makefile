@@ -19,7 +19,7 @@ keymap.o: keymap.c keymap.h config.h
 chordial.o: event_handler.o event_handler.h chordial.c
 	$(CC) chordial.c $(CFLAGS)
 
-event_handler.o: event_handler.c event_handler.h
+event_handler.o: event_handler.c event_handler.h keymap.h
 	$(CC) event_handler.c $(CFLAGS)
 
 sendkey.o: sendkey.h sendkey.c

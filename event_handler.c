@@ -48,10 +48,11 @@ bool key_up(KeySym key, bool* pressedkeys)
 
 bool action_in_pressedkeys(KeySym action, bool* pressedkeys)
 {
+  unsigned long mask = get_mask(num_keys, pressedkeys);
   unsigned char c;
   for(c=0;c<num_keys;c++)
     {
-      if(action==pressedkeys[c])
+      if(true&&(action==keyboard_keys[c]))
 	return true;
     }
   return false;

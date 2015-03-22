@@ -39,10 +39,10 @@ int main(int argc, char **argv)
       if(event.type == KeyPress)
 	{
 	  key_down(ks, pressedkeys);
-	  /* printf("kdn: "); */
-	  /* for(i=0;i<num_keys;i++) */
-	  /*   printf("%d", pressedkeys[i]); */
-	  /* printf("\n"); */
+	  printf("kdn: ");
+	  for(i=0;i<num_keys;i++)
+	    printf("%d", pressedkeys[i]);
+	  printf("\n");
 	}
       else // KeyRelease
 	{
@@ -50,10 +50,10 @@ int main(int argc, char **argv)
 	  unsigned long mask = get_mask(num_keys, pressedkeys);
 	  bool assigned = lookup(mask, &action);
 	  key_up(ks, pressedkeys);
-	  /* printf("kup: "); */
-	  /* for(i=0;i<num_keys;i++) */
-	  /*   printf("%d", pressedkeys[i]); */
-	  /* printf("\n"); */
+	  printf("kup: ");
+	  for(i=0;i<num_keys;i++)
+	    printf("%d", pressedkeys[i]);
+	  printf("\n");
 	  //printf("mask: %lu\t",mask);
 	  //printf("action: %u\t", action);
 	  /* 
@@ -62,6 +62,7 @@ int main(int argc, char **argv)
 	   * and another keydn after?
 	   */
 	  bool aipk = action_in_pressedkeys(action, pressedkeys);
+	  printf("aipk: %d\n",aipk!=false);
 	  if(aipk)
 	    {
 	      XUngrabKeyboard(display, CurrentTime);
@@ -73,7 +74,7 @@ int main(int argc, char **argv)
 	  if(assigned && true)
 	    {
 	      XUngrabKeyboard(display, CurrentTime);
-	      send_key(action,display);
+	      //send_key(action,display);
 	      grab_succ = XGrabKeyboard(display, rootwin,
 					false, GrabModeAsync,
 					GrabModeAsync, CurrentTime);
