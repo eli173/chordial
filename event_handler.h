@@ -22,4 +22,6 @@ void key_down(KeySym key, bool* pressedkeys);
 
 bool key_up(KeySym key, bool* pressedkeys);
 
+bool action_in_pressedkeys(KeySym action, bool* pressedkeys);
+
 #endif

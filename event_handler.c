@@ -44,3 +44,15 @@ bool key_up(KeySym key, bool* pressedkeys)
   
   return true;  
 }
+
+
+bool action_in_pressedkeys(KeySym action, bool* pressedkeys)
+{
+  unsigned char c;
+  for(c=0;c<num_keys;c++)
+    {
+      if(action==pressedkeys[c])
+	return true;
+    }
+  return false;
+}

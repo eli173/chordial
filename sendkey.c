@@ -31,3 +31,23 @@ int send_key(KeySym keysym, Display* display)
   XFlush(display);
   return 0;
 }
+
+int send_key_up(KeySym keysym, Display* display)
+{
+  if(display==NULL)
+    return -1;
+  XTestFakeKeyEvent(display, XKeysymToKeycode(display,keysym),
+		    KEYUP, CurrentTime);
+  XFlush(display);
+  return 0;
+}
+
+int send_key_down(KeySym keysym, Display* display)
+{
+  if(display==NULL)
+    return -1;
+  XTestFakeKeyEvent(display, XKeysymToKeycode(display,keysym),
+		    KEYDOWN, CurrentTime);
+  XFlush(display);
+  return 0;
+}
