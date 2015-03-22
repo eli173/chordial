@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 	   */
 	  bool aipk = action_in_pressedkeys(action, pressedkeys);
 	  printf("aipk: %d\n",aipk!=false);
-	  if(aipk)
+	  if(false && aipk)
 	    {
 	      XUngrabKeyboard(display, CurrentTime);
 	      send_key_up(action, display);
@@ -74,12 +74,12 @@ int main(int argc, char **argv)
 	  if(assigned && true)
 	    {
 	      XUngrabKeyboard(display, CurrentTime);
-	      //send_key(action,display);
+	      send_key(action,display);
 	      grab_succ = XGrabKeyboard(display, rootwin,
 					false, GrabModeAsync,
 					GrabModeAsync, CurrentTime);
 	    }
-	  if(aipk)
+	  if(false && aipk)
 	    {
 	      XUngrabKeyboard(display, CurrentTime);
 	      send_key_down(action, display);
