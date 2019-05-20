@@ -24,6 +24,7 @@ int main(int argc, char **argv)
 				GrabModeAsync, CurrentTime);
   XEvent event;
   bool *pressedkeys = malloc(sizeof(bool)*num_keys);
+  bool in_keyup = false;
   unsigned int i;
   for(i=0;i<num_keys;i++)
     {
@@ -35,7 +36,11 @@ int main(int argc, char **argv)
       //printf("type: %d\n",event.type);
       KeySym ks = get_keysym(event);
       if(ks == XK_Escape)
-	return 0;
+	{
+	  XAutoRepeatOn(display);
+	  XCloseDisplay(display);
+	  return 0;
+	}
       if(event.type == KeyPress)
 	{
 	  key_down(ks, pressedkeys);
@@ -43,6 +48,7 @@ int main(int argc, char **argv)
 	  for(i=0;i<num_keys;i++)
 	    printf("%d", pressedkeys[i]);
 	  printf("\n");
+	  in_keyup = false;
 	}
       else // KeyRelease
 	{
@@ -63,26 +69,11 @@ int main(int argc, char **argv)
 	   */
 	  bool aipk = action_in_pressedkeys(action, pressedkeys);
 	  printf("aipk: %d\n",aipk!=false);
-	  if(false && aipk)
+	  if(assigned && !in_keyup)
 	    {
-	      XUngrabKeyboard(display, CurrentTime);
-	      send_key_up(action, display);
-	      grab_succ = XGrabKeyboard(display, rootwin,
-					false, GrabModeAsync,
-					GrabModeAsync, CurrentTime);
-	    }
-	  if(assigned && true)
-	    {
+	      in_keyup = true;
 	      XUngrabKeyboard(display, CurrentTime);
 	      send_key(action,display);
-	      grab_succ = XGrabKeyboard(display, rootwin,
-					false, GrabModeAsync,
-					GrabModeAsync, CurrentTime);
-	    }
-	  if(false && aipk)
-	    {
-	      XUngrabKeyboard(display, CurrentTime);
-	      send_key_down(action, display);
 	      grab_succ = XGrabKeyboard(display, rootwin,
 					false, GrabModeAsync,
 					GrabModeAsync, CurrentTime);
