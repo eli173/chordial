@@ -1,3 +1,21 @@
+/**
+   Copyright (C) 2014-2019 Elijah Cohen
+   
+   This file is part of Chordial.
+   
+   Chordial is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   Chordial is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with Chordial.  If not, see <https://www.gnu.org/licenses/>.
+*/
 
 
 #include <X11/Xlib.h>
@@ -33,7 +51,6 @@ int main(int argc, char **argv)
   while(grab_succ == 0) // is 0 right?
     {
       XMaskEvent(display, KeyPressMask | KeyReleaseMask, &event);
-      //printf("type: %d\n",event.type);
       KeySym ks = get_keysym(event);
       if(ks == XK_Escape)
 	{
@@ -44,10 +61,6 @@ int main(int argc, char **argv)
       if(event.type == KeyPress)
 	{
 	  key_down(ks, pressedkeys);
-	  printf("kdn: ");
-	  for(i=0;i<num_keys;i++)
-	    printf("%d", pressedkeys[i]);
-	  printf("\n");
 	  in_keyup = false;
 	}
       else // KeyRelease
@@ -56,19 +69,12 @@ int main(int argc, char **argv)
 	  unsigned long mask = get_mask(num_keys, pressedkeys);
 	  bool assigned = lookup(mask, &action);
 	  key_up(ks, pressedkeys);
-	  printf("kup: ");
-	  for(i=0;i<num_keys;i++)
-	    printf("%d", pressedkeys[i]);
-	  printf("\n");
-	  //printf("mask: %lu\t",mask);
-	  //printf("action: %u\t", action);
 	  /* 
 	   * Okayyy.. check that the key sent isn't 
 	   * in the new mask and then sim a keyup before
 	   * and another keydn after?
 	   */
 	  bool aipk = action_in_pressedkeys(action, pressedkeys);
-	  printf("aipk: %d\n",aipk!=false);
 	  if(assigned && !in_keyup)
 	    {
 	      in_keyup = true;
@@ -79,7 +85,6 @@ int main(int argc, char **argv)
 					GrabModeAsync, CurrentTime);
 	    }
 	  mask = 0;
-	  //printf("newmask: %lu\n",get_mask(num_keys, pressedkeys));
 	}
     }
   XAutoRepeatOn(display);
